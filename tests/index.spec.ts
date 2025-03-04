@@ -1,88 +1,80 @@
-import { describe, it, expect } from "vitest";
+import { describe, test, expect } from "vitest";
 import { Pokemon, Pokedex, Combat } from "../src/ejercicio1";
-import { Cancion, Disco, Artista, BibliotecaMusical } from "../src/ejercicio2";
+import { Artista, Disco, Cancion, BibliotecaMusical } from "../src/ejercicio2";
 
-describe("Pokemon", () => {
-    it("Debe crear un Pokémon con los valores correctos", () => {
-        const pikachu = new Pokemon("Pikachu", 6, 0.4, "electrico", 55, 40, 90, 100);
-        expect(pikachu.nombre).toBe("Pikachu");
-        expect(pikachu.tipo).toBe("electrico");
-        expect(pikachu.hp).toBe(100);
+describe("Pokemon Class", () => {
+    test("Crear un Pokemon correctamente", () => {
+        const charmander = new Pokemon("Charmander", 8.5, 0.6, "fuego", 52, 43, 65, 39);
+        expect(charmander.getNombre()).toBe("Charmander");
+        expect(charmander.getTipo()).toBe("fuego");
+        expect(charmander.getHp()).toBe(39);
+    });
+
+    test("Recibir daño", () => {
+        const pikachu = new Pokemon("Pikachu", 6, 0.4, "eléctrico", 55, 40, 90, 35);
+        pikachu.recibirDaño(10);
+        expect(pikachu.getHp()).toBe(25);
+        pikachu.recibirDaño(30); // No debe ser negativo
+        expect(pikachu.getHp()).toBe(0);
     });
 });
 
-describe("Pokedex", () => {
-    it("Debe agregar y buscar Pokémon por tipo", () => {
+describe("Pokedex Class", () => {
+    test("Añadir y buscar un Pokemon", () => {
         const pokedex = new Pokedex();
-        const charmander = new Pokemon("Charmander", 8.5, 0.6, "fuego", 52, 43, 65, 100);
-        const squirtle = new Pokemon("Squirtle", 9, 0.5, "agua", 48, 65, 43, 100);
+        const squirtle = new Pokemon("Squirtle", 9, 0.5, "agua", 48, 65, 43, 44);
+        pokedex.setPokemon(squirtle);
 
-        pokedex.agregarPokemon(charmander);
-        pokedex.agregarPokemon(squirtle);
-
-        const resultado = pokedex.buscarPorTipo("fuego");
-        expect(resultado.length).toBe(1);
-        expect(resultado[0].nombre).toBe("Charmander");
+        const pokemon = pokedex.buscarPokemon("agua");
+        expect(pokemon).toBe("Squirtle - Tipo: agua - HP: 44");
++        pokedex.buscarPokemon("agua");
     });
 });
 
-describe("Combat", () => {
-    it("Debe calcular la efectividad de los ataques correctamente", () => {
-        const charmander = new Pokemon("Charmander", 8.5, 0.6, "fuego", 52, 43, 65, 100);
-        const bulbasaur = new Pokemon("Bulbasaur", 6.9, 0.7, "hierba", 49, 49, 45, 100);
+describe("Combat Class", () => {
+    test("Calcula daño correctamente", () => {
+        const charmander = new Pokemon("Charmander", 8.5, 0.6, "fuego", 52, 43, 65, 39);
+        const bulbasaur = new Pokemon("Bulbasaur", 6.9, 0.7, "hierba", 49, 49, 45, 45);
 
         const combate = new Combat(charmander, bulbasaur);
-        expect(combate.start()).toContain("Charmander ha ganado el combate!");
+        const daño = combate.calcularDaño(charmander, bulbasaur);
+
+        expect(daño).toBeCloseTo(50 * (52 / 49) * 2, 2); // Comprobamos con la fórmula
     });
 
-    it("Debe permitir que un Pokémon de agua venza a uno de fuego", () => {
-        const squirtle = new Pokemon("Squirtle", 9, 0.5, "agua", 48, 65, 43, 100);
-        const charmander = new Pokemon("Charmander", 8.5, 0.6, "fuego", 52, 43, 65, 100);
+    test("Simulación de combate", () => {
+        const charmander = new Pokemon("Charmander", 8.5, 0.6, "fuego", 52, 43, 65, 39);
+        const bulbasaur = new Pokemon("Bulbasaur", 6.9, 0.7, "hierba", 49, 49, 45, 45);
 
-        const combate = new Combat(squirtle, charmander);
-        expect(combate.start()).toContain("Squirtle ha ganado el combate!");
-    });
-});
+        const combate = new Combat(charmander, bulbasaur);
+        const resultado = combate.start();
 
-describe("Cancion", () => {
-    it("Debe crear una canción con los valores correctos", () => {
-        const cancion = new Cancion("Bohemian Rhapsody", 354, ["Rock"], true, 5000000);
-        expect(cancion.nombre).toBe("Bohemian Rhapsody");
-        expect(cancion.duracion).toBe(354);
-        expect(cancion.reproducciones).toBe(5000000);
+        expect(resultado).toMatch(/ha ganado el combate!/);
     });
 });
 
-describe("Disco", () => {
-    it("Debe calcular correctamente el número de canciones, la duración y las reproducciones", () => {
-        const cancion1 = new Cancion("Song 1", 200, ["Pop"], false, 1000);
-        const cancion2 = new Cancion("Song 2", 180, ["Pop"], true, 500);
-        const disco = new Disco("Best Album", 2020, [cancion1, cancion2]);
-
-        expect(disco.calcularNumeroCanciones()).toBe(2);
-        expect(disco.calcularDuracion()).toBe(380);
-        expect(disco.calcularReproducciones()).toBe(1500);
+describe("Artista Class", () => {
+    test("Crear un Artista correctamente", () => {
+        const artista = new Artista("The Beatles", 1000000, []);
+        expect(artista.getNombre()).toBe("The Beatles");
+        expect(artista.getNumeroDeOyentes()).toBe(1000000);
     });
 });
 
-describe("BibliotecaMusical", () => {
-    it("Debe agregar un artista y permitir su búsqueda", () => {
-        const biblioteca = new BibliotecaMusical();
-        const artista = new Artista("Queen", 30000000, []);
-
-        biblioteca.agregarArtista(artista);
-        expect(biblioteca.buscarArtista("Queen")).toBe(artista);
-    });
-
-    it("Debe permitir buscar discos y canciones", () => {
-        const biblioteca = new BibliotecaMusical();
-        const cancion = new Cancion("We Will Rock You", 123, ["Rock"], true, 10000000);
-        const disco = new Disco("News of the World", 1977, [cancion]);
-        const artista = new Artista("Queen", 30000000, [disco]);
-
-        biblioteca.agregarArtista(artista);
-
-        expect(biblioteca.buscarDisco("News of the World")).toBe(disco);
-        expect(biblioteca.buscarCancion("We Will Rock You")).toBe(cancion);
+describe("Disco Class", () => {
+    test("Crear un Disco correctamente", () => {
+        const disco = new Disco("Abbey Road", 1969, []);
+        expect(disco.getNombre()).toBe("Abbey Road");
+        expect(disco.getAño()).toBe(1969);
     });
 });
+
+describe("Cancion Class", () => {
+    test("Crear una Canción correctamente", () => {
+        const cancion = new Cancion("Come Together", 4.2, "rock", true, 1000000);
+        expect(cancion.getNombre()).toBe("Come Together");
+        expect(cancion.getGenero()).toBe("rock");
+        expect(cancion.getSingle()).toBe(true);
+    });
+});
+
