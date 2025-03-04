@@ -20,10 +20,11 @@ export default [
       "tsdoc/syntax": "warn"
     }
   },
-  {ignores: [
+  {
+    ignores: [
     "dist/*",
-    "eslint.config.mjs",
-    "docs/*"
+    "docs/*",
+    "eslint.config.mjs"
   ]    
   }
 ];

@@ -1,3 +1,7 @@
+/**
+ * 
+ */
+
 export class Pokemon {
     constructor(
         public nombre: string,
@@ -9,7 +13,7 @@ export class Pokemon {
         public velocidad: number,
         public hp: number
     ) {}
-
+    
     obtenerTipo(): string {
         return this.tipo;
     }
