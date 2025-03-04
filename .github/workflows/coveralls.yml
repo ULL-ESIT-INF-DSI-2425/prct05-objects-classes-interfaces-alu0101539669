@@ -26,7 +26,7 @@ jobs:
       - name: Installing dependences
         run: npm ci
       - name: Generating coverage information
-        run: npm run coverage
+        run: npx vitest run --coverage --coverage.include src/*
       - name: Coveralls Github 
         uses: coverallsapp/github-action@v2.3.6
         with:
