@@ -27,3 +27,4 @@ jobs:
         run: npm ci
       - name: Running test
         run: npx vitest
+        
