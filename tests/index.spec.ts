@@ -1,6 +1,10 @@
 import { describe, test, expect } from "vitest";
 import { Pokemon, Pokedex, Combat } from "../src/ejercicio1";
-import { Artista, Disco, Cancion, BibliotecaMusical } from "../src/ejercicio2";
+//import { Artista, Disco, Cancion, BibliotecaMusical } from "../src/ejercicio2";
+
+import { vehiculo, Coche, Moto } from "../src/ejercicio3";
+
+// Ejercicio 1
 
 describe("Pokemon Class", () => {
     test("Crear un Pokemon correctamente", () => {
@@ -53,28 +57,59 @@ describe("Combat Class", () => {
     });
 });
 
-describe("Artista Class", () => {
-    test("Crear un Artista correctamente", () => {
-        const artista = new Artista("The Beatles", 1000000, []);
-        expect(artista.getNombre()).toBe("The Beatles");
-        expect(artista.getNumeroDeOyentes()).toBe(1000000);
+//Ejercicio2
+
+// describe("Artista Class", () => {
+//     test("Crear un Artista correctamente", () => {
+//         const artista = new Artista("The Beatles", 1000000, []);
+//         expect(artista.getNombre()).toBe("The Beatles");
+//         expect(artista.getNumeroDeOyentes()).toBe(1000000);
+//     });
+// });
+
+// describe("Disco Class", () => {
+//     test("Crear un Disco correctamente", () => {
+//         const disco = new Disco("Abbey Road", 1969, []);
+//         expect(disco.getNombre()).toBe("Abbey Road");
+//         expect(disco.getAño()).toBe(1969);
+//     });
+// });
+
+// describe("Cancion Class", () => {
+//     test("Crear una Canción correctamente", () => {
+//         const cancion = new Cancion("Come Together", 4.2, "rock", true, 1000000);
+//         expect(cancion.getNombre()).toBe("Come Together");
+//         expect(cancion.getGenero()).toBe("rock");
+//         expect(cancion.getSingle()).toBe(true);
+//     });
+// });
+
+
+//Ejercicio
+
+// describe("Vehiculo", () => {
+//     test("Crear un Vehiculo correctamente", () => {
+//         const vehiculo1 = new vehiculo("8806KZS", "Toyota", "Corolla", 1200, 60, "azul");
+//         expect(vehiculo1.getNombre()).toBe("The Beatles");
+//         expect(vehiculo1.getNumeroDeOyentes()).toBe(1000000);
+//     });
+// });
+
+describe("Coche", () => {
+    test("Crear un coche correctamente", () => {
+        const COCHE = new Coche ("8806KZS", "Toyota", "Corolla", 1200, 60, "azul",4,true);
+        expect(COCHE.getData()).toBe('Coche: Toyota Corolla, Matrícula: 8806KZS, Color: azul, Puertas: 4, Descapotable¿?: true ')
     });
 });
 
-describe("Disco Class", () => {
-    test("Crear un Disco correctamente", () => {
-        const disco = new Disco("Abbey Road", 1969, []);
-        expect(disco.getNombre()).toBe("Abbey Road");
-        expect(disco.getAño()).toBe(1969);
+describe("Moto", () => {
+    test("Crear una moto correctamente", () => {
+        const moto = new Moto ("8806KZS", "KTM", "Superbike", 2400, 120, "negro", "completo", "libre");
+        expect(moto.getData()).toBe('Moto: KTM Superbike, Matrícula: 8806KZS, Color: negro, Tipo de manillar: completo, Tipo de escape libre')
     });
 });
 
-describe("Cancion Class", () => {
-    test("Crear una Canción correctamente", () => {
-        const cancion = new Cancion("Come Together", 4.2, "rock", true, 1000000);
-        expect(cancion.getNombre()).toBe("Come Together");
-        expect(cancion.getGenero()).toBe("rock");
-        expect(cancion.getSingle()).toBe(true);
-    });
-});
+
+
+
 
