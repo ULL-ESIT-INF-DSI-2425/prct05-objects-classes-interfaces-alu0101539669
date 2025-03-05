@@ -39,7 +39,13 @@ export  abstract class vehiculo {
 }
 
 /**
- * Clase Coche
+ * @class Coche 
+ * @param matricula Matricula del coche
+ * @param marca marca del coche
+ * @param modelo modelo del coche 
+ * @param numeroPuertas indica el numero de puertas que tiene el coche
+ * @method get NumeroPuertas devuelve el numero de puertas
+ * @method getData() devuelve la información del coche 
 */
 
 export class Coche extends vehiculo {
@@ -86,6 +92,30 @@ export class Moto extends vehiculo {
 
     getData(): string {
         return `Moto: ${this.Marca} ${this.Modelo}, Matrícula: ${this.Matricula}, Color: ${this.Color}, Tipo de manillar: ${this.tipoDeManillar}, Tipo de escape ${this.tipoDeEscape}`;
+    }
+
+}
+
+export class Parking {
+    private coches: { vehiculo: Coche; fechaEntrada: string  }[] = [];
+    private motos: { vehiculo: Moto; fechaEntrada: string }[] = [];
+  
+    constructor(private maxCoches: number, private maxMotos: number) {}
+
+    estacionarCoche(coche: Coche, fechaEntrada:string): boolean {
+        if (this.coches.length < this.maxCoches) {
+          //this.coches.push(coche, fechaEntrada);
+          return true;
+        }
+        return false;
+    }
+
+    estacionarMoto(moto: Moto): boolean {
+        if (this.motos.length < this.maxMotos){
+            
+            return true;
+        }
+        return false;
     }
 
 }
