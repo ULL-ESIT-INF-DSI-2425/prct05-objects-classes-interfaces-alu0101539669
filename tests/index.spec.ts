@@ -87,25 +87,33 @@ describe("Combat Class", () => {
 
 //Ejercicio
 
-// describe("Vehiculo", () => {
-//     test("Crear un Vehiculo correctamente", () => {
-//         const vehiculo1 = new vehiculo("8806KZS", "Toyota", "Corolla", 1200, 60, "azul");
-//         expect(vehiculo1.getNombre()).toBe("The Beatles");
-//         expect(vehiculo1.getNumeroDeOyentes()).toBe(1000000);
-//     });
-// });
-
 describe("Coche", () => {
     test("Crear un coche correctamente", () => {
         const COCHE = new Coche ("8806KZS", "Toyota", "Corolla", 1200, 60, "azul",4,true);
-        expect(COCHE.getData()).toBe('Coche: Toyota Corolla, Matrícula: 8806KZS, Color: azul, Puertas: 4, Descapotable¿?: true ')
+        expect(COCHE.getData()).toBe('Coche: Toyota Corolla, Matrícula: 8806KZS, Color: azul, Puertas: 4, Descapotable¿? true')
     });
+    test("Comprobar getters y setters", () => {
+        const coche = new Coche("1234ABC", "Ford", "Focus", 1600, 90, "rojo", 5, false);
+        coche.NumeroPuertas = 3;
+        coche.Descapotable = true;
+        expect(coche.NumeroPuertas).toBe(3);
+        expect(coche.Descapotable).toBe(true);
+    });
+
 });
 
 describe("Moto", () => {
     test("Crear una moto correctamente", () => {
         const moto = new Moto ("8806KZS", "KTM", "Superbike", 2400, 120, "negro", "completo", "libre");
         expect(moto.getData()).toBe('Moto: KTM Superbike, Matrícula: 8806KZS, Color: negro, Tipo de manillar: completo, Tipo de escape libre')
+    });
+
+    test("Comprobar getters y setters", () => {
+        const moto = new Moto("9101DEF", "Yamaha", "R1", 1000, 180, "azul", "deportivo", "cerrado");
+        moto.Manillar = "turismo";
+        moto.Escape = "abierto";
+        expect(moto.Manillar).toBe("turismo");
+        expect(moto.Escape).toBe("abierto");
     });
 });
 
